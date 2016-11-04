@@ -124,8 +124,10 @@ done
 # {ID}_navi_(\d|\d\d|\d\d\d)a{0,1}\.mp3
 for i in $(seq 1 99); do
     URLP2="_navi_$i"
+    URLP2E="_navi$i"
     URL1=$URLP1$CHARA_ID$URLP2$EXT      #without 'a'
     URL2=$URLP1$CHARA_ID$URLP2"a"$EXT   #with 'a'
+    URL3=$URLP1$CHARA_ID$URLP2E$EXT     #no _
 
     FOUND="NO"
     if isValidURL $URL1; then
@@ -136,6 +138,11 @@ for i in $(seq 1 99); do
     if isValidURL $URL2; then
         echoerr "FOUND $URL2"
         writeList $URL2 $URLP2"a"
+        FOUND="YES"
+    fi
+    if isValidURL $URL3; then
+        echoerr "FOUND $URL3"
+        writeList $URL3 $URLP2E
         FOUND="YES"
     fi
     if [ $FOUND == "NO" ]; then
